@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var connectionString = 'mongodb://gogo:gogo123@localhost:27017/fixed';
-// var mongoosePaginate = require('mongoose-paginate');
+var mongoosePaginate = require('mongoose-paginate');
 
 mongoose.connect(connectionString, { useNewUrlParser: true });
 
@@ -16,7 +16,7 @@ var fixedSchema = new mongoose.Schema({
     type : String,
 });
 
-// fixedSchema.plugin(mongoosePaginate);
+fixedSchema.plugin(mongoosePaginate);
 fixedSchema.index({name: 'text'});
 
 module.exports = mongoose.model('amiiboData',fixedSchema);
