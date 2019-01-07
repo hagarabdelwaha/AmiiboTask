@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var connectionString = 'mongodb://gogo:gogo123@localhost:27017/fixed';
+var connectionString = 'mongodb://127.0.0.1:27017/fixed';
 var mongoosePaginate = require('mongoose-paginate');
 
 mongoose.connect(connectionString, { useNewUrlParser: true });
