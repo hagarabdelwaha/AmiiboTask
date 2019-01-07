@@ -1,7 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var Amiibo = require('../models/amiibo');
+var Data = require('../Data')
 
+
+/*to insert all data in collection  */
+router.get('/load',function(req,res,next)
+{
+     Data.map((dt)=>{
+          console.log(dt);
+        Amiibo(dt).save(function(err)
+          {  if(err) throw err 
+            console.log('1 saved ');
+        });
+     });
+});
 
 
 /* GET list of amiibo cards . */
@@ -40,6 +53,7 @@ router.get('/search', function(req, res, next) {
     });
     
   });
-  
+
+
 
 module.exports = router;
