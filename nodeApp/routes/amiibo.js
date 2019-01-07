@@ -14,6 +14,8 @@ router.get('/load',function(req,res,next)
             console.log('1 saved ');
         });
      });
+
+    res.status(200).json({'data':'loaded'});
 });
 
 
