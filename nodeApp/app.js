@@ -27,7 +27,13 @@ var corsOptions = {
 }
 app.use(cors(corsOptions));
 
-app.use('/', indexRouter);
+app.use(express.static(path.join(__dirname, 'build')));
+// app.use('/', indexRouter);
+
+app.get('/', function(req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 app.use('/users', usersRouter);
 app.use('/amiibo', amiibosRouter);
 
