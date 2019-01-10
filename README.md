@@ -3,8 +3,6 @@ fixed full stack developer task
 
 #to run nodeApp 
 
-----> you need to change connectionString in models/amiibo with your mongodb running in your machine <------
-
 1-cd node nodeApp
 
 2-npm install
