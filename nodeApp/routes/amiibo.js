@@ -45,7 +45,7 @@ router.get('/search', function(req, res, next) {
     {
       perpage=req.query.page;
     }
-    Amiibo.paginate({$text: {$search: req.query.search}},{page:perpage,limit:10},function(err,data){
+    Amiibo.paginate({ name: { $regex:req.query.search, $options: 'i' } },{page:perpage,limit:10},function(err,data){
         if(!err)
         {  
             res.status(200).json({'data':data});
