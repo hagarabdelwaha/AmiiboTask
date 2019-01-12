@@ -7,6 +7,11 @@ import { getTotalCardsNumber } from './actions/gettotalaction'
 import axios from 'axios';
 
 
+let backend;
+if(process.env.REACT_APP_SAME_HOST) backend = '';
+else if(process.env.REACT_APP_API) backend = process.env.REACT_APP_API;
+else backend = 'http://localhost:8080';
+
 class App extends Component {
 
 
@@ -19,24 +24,24 @@ class App extends Component {
     {
       this.getAmiiboCards();
     }
-    
+
   }
 
   getAmiiboCards=()=>
   {
-    axios.get('http://localhost:8080/amiibo').then(res=>{
+    axios.get(`${backend}/amiibo/`).then(res=>{
         this.props.getAmiiboCards(res.data.data.docs);
         this.props.getTotalCardsNumber(res.data.data.total);
-        
+
       }).catch((err)=>{
         console.log('ERRROR',err);
       });
   }
-  
+
 
   search=(search)=>
   {
-    axios.get('http://localhost:8080/amiibo/search?search='+search).then(res=>{     
+    axios.get(`${backend}/amiibo/search?search=${search}`).then(res=>{
          this.props.getAmiiboCards(res.data.data.docs);
          this.props.getTotalCardsNumber(res.data.data.total)
       }).catch((err)=>{
@@ -46,7 +51,7 @@ class App extends Component {
 
   componentDidMount(){
     this.getAmiiboCards();
-  }  
+  }
 
   render() {
     return (
@@ -65,14 +70,14 @@ class App extends Component {
            <h4>Total Cards : {this.props.total}</h4>
            <h4>Visible Cards :{this.props.amiibos.length}</h4>
         </div>
-        { 
-          this.props.amiibos.length === 0 ? <h4>No cards match search </h4> : 
+        {
+          this.props.amiibos.length === 0 ? <h4>No cards match search </h4> :
           this.props.amiibos.map(amiibo =>{
            return <Amiibo key={amiibo._id} amiibo={amiibo}/>
           })
         }
 
-        
+
       </div>
     );
   }
